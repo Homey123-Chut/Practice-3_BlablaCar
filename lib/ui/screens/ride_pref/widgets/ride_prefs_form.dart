@@ -66,8 +66,24 @@ class _RidePrefFormState extends State<RidePrefForm> {
     });
   }
 
-  
+  void onDeparturePressed() async {
+    Location? selectedLocation = await Navigator.of(context).push<Location>(
+      MaterialPageRoute(
+        builder: (context) => LocationPicker(selectedLocation: departure),
+      ),
+    );
 
+    if (selectedLocation != null) {
+      setState(() {
+        departure = selectedLocation;
+      });
+    }
+  }
+
+  
+  // ----------------------------------
+  // Compute the widgets rendering
+  // ----------------------------------
   String get departureLabel => departure != null ? departure!.name : "From";
   String get arrivalLabel => arrival != null ? arrival!.name : "To";
 
@@ -89,7 +105,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
           RidePrefInput(
             title: departureLabel,
             leftIcon: Icons.location_on,
-            onPressed: () {},
+            onPressed: onDeparturePressed,
             rightIcon: Icons.swap_vert_sharp,
             onRightIconPressed: swapLocation,
           ),
