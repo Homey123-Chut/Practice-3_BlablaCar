@@ -80,6 +80,20 @@ class _RidePrefFormState extends State<RidePrefForm> {
     }
   }
 
+  void onArrivalPressed() async {
+    Location? selectedLocation = await Navigator.of(context).push<Location>(
+      MaterialPageRoute(
+        builder: (context) => LocationPicker(selectedLocation: arrival),
+      ),
+    );
+
+    if (selectedLocation != null) {
+      setState(() {
+        arrival = selectedLocation;
+      });
+    }
+  }
+
   
   // ----------------------------------
   // Compute the widgets rendering
@@ -115,7 +129,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
           RidePrefInput(
             title: arrivalLabel,
             leftIcon: Icons.location_on,
-            onPressed: () {},
+            onPressed: onArrivalPressed,
           ),
           const BlaDivider(),
   
