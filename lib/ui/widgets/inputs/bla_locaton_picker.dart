@@ -49,18 +49,17 @@ class _LocationPickerState extends State<LocationPicker> {
     super.dispose();
   }
 
-  void filterLocations(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        filteredLocations = fakeLocations;
-      } else {
-        filteredLocations = [];
-        for (var location in fakeLocations) {
-          if (location.name.toLowerCase().contains(query.toLowerCase())) {
-            filteredLocations.add(location);
-          }
-        }
+  void searchedLocation(String query) {
+    List<Location> results = [];
+
+    for (var location in fakeLocations) {
+      if (location.name.toLowerCase().contains(query.toLowerCase())) {
+        results.add(location); 
       }
+    }
+
+    setState(() {
+      filteredLocations = results;
     });
   }
 
@@ -82,7 +81,7 @@ class _LocationPickerState extends State<LocationPicker> {
             padding: EdgeInsets.all(10),
             child: TextField(
               controller: searchController,
-              onChanged: filterLocations,
+              onChanged: searchedLocation,
               decoration: InputDecoration(
                 hintText: 'Search',
                 prefixIcon: Icon(Icons.chevron_left),
@@ -91,7 +90,7 @@ class _LocationPickerState extends State<LocationPicker> {
                         icon: const Icon(Icons.close),
                         onPressed: () {
                           searchController.clear();
-                          filterLocations('');
+                          searchedLocation('');
                         },
                       )
                     : null,

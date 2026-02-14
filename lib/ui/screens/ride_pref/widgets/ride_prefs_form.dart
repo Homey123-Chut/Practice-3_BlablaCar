@@ -94,6 +94,21 @@ class _RidePrefFormState extends State<RidePrefForm> {
     }
   }
 
+  void pickDate() {
+    showDatePicker(
+      context: context,
+      initialDate: departureDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    ).then((selectedDate) {
+      if (selectedDate != null) {
+        setState(() {
+          departureDate = selectedDate;
+        });
+      }
+    });
+  }
+
   
   // ----------------------------------
   // Compute the widgets rendering
@@ -137,7 +152,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
           RidePrefInput(
             title: dateLabel,
             leftIcon: Icons.calendar_month,
-            onPressed: () {},
+            onPressed: pickDate,
           ),
           const BlaDivider(),
   
