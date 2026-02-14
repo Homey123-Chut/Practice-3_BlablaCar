@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../model/ride/locations.dart';
 import '../../../../model/ride_pref/ride_pref.dart';
+import '../../../widgets/display/bla_divider.dart';
+import '../../../widgets/actions/bla_button.dart';
+import '../widgets/ride_prefs_input.dart';
 
 ///
 /// A Ride Preference From is a view to select:
@@ -35,16 +38,46 @@ class _RidePrefFormState extends State<RidePrefForm> {
   @override
   void initState() {
     super.initState();
-    // TODO
+
+    if (widget.initRidePref != null) {
+      departure = widget.initRidePref!.departure;
+      arrival = widget.initRidePref!.arrival;
+      departureDate = widget.initRidePref!.departureDate;
+      requestedSeats = widget.initRidePref!.requestedSeats;
+    } else {
+      departure = null; 
+      departureDate = DateTime.now(); 
+      arrival = null; 
+      requestedSeats = 1; 
+    }
   }
 
   // ----------------------------------
   // Handle events
   // ----------------------------------
+  void swapLocation() {
+    setState(() {
+      if (departure != null && arrival != null) {
+        Location temp = departure!;
+        departure = arrival;
+        arrival = temp;
+      }
+    });
+  }
+
+
 
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
+
+  String get departureLabel => departure != null ? departure!.name : "From";
+  String get arrivalLabel => arrival != null ? arrival!.name : "To";
+
+  String get numberLabel => requestedSeats.toString();
+  String get dateLabel => DateFormat('EEE dd MMM').format(departureDate);
+
+  bool get switchVisible => arrival != null && departure != null;
 
   // ----------------------------------
   // Build the widgets
@@ -54,8 +87,49 @@ class _RidePrefFormState extends State<RidePrefForm> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [ 
-        
-        ]);
+        children: [ 
+          //  departure
+          RidePrefInput(
+            title: departureLabel,
+            leftIcon: Icons.location_on,
+            onPressed: () {},
+            rightIcon: Icons.swap_vert_sharp,
+            onRightIconPressed: swapLocation,
+          ),
+          const BlaDivider(),
+  
+          // arrival
+          RidePrefInput(
+            title: arrivalLabel,
+            leftIcon: Icons.location_on,
+            onPressed: (){},
+          ),
+          const BlaDivider(),
+  
+          // date
+          RidePrefInput(
+            title: dateLabel,
+            leftIcon: Icons.calendar_month,
+            onPressed: () => {},
+          ),
+          const BlaDivider(),
+  
+          // number of seats
+          RidePrefInput(
+            title: numberLabel,
+            leftIcon: Icons.person_2_outlined,
+            onPressed: () => {},
+          ),
+          const BlaDivider(),
+          
+          // Search button
+          BlaButton (
+            isPrimary: true,
+            text: "Search",
+            onPressed: () {},
+          ),
+  
+        ],
+      );
   }
 }
