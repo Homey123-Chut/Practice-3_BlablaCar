@@ -5,6 +5,7 @@ import '../../../../model/ride_pref/ride_pref.dart';
 import '../../../widgets/display/bla_divider.dart';
 import '../../../widgets/actions/bla_button.dart';
 import '../widgets/ride_prefs_input.dart';
+import 'package:week_3_blabla_project/ui/widgets/inputs/bla_locaton_picker.dart';
 
 ///
 /// A Ride Preference From is a view to select:
@@ -65,11 +66,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
     });
   }
 
-
-
-  // ----------------------------------
-  // Compute the widgets rendering
-  // ----------------------------------
+  
 
   String get departureLabel => departure != null ? departure!.name : "From";
   String get arrivalLabel => arrival != null ? arrival!.name : "To";
@@ -102,7 +99,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
           RidePrefInput(
             title: arrivalLabel,
             leftIcon: Icons.location_on,
-            onPressed: (){},
+            onPressed: () {},
           ),
           const BlaDivider(),
   
@@ -110,7 +107,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
           RidePrefInput(
             title: dateLabel,
             leftIcon: Icons.calendar_month,
-            onPressed: () => {},
+            onPressed: () {},
           ),
           const BlaDivider(),
   
@@ -118,7 +115,9 @@ class _RidePrefFormState extends State<RidePrefForm> {
           RidePrefInput(
             title: numberLabel,
             leftIcon: Icons.person_2_outlined,
-            onPressed: () => {},
+            onPressed: () {
+             
+            },
           ),
           const BlaDivider(),
           
