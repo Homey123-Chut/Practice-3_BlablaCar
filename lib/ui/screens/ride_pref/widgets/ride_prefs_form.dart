@@ -108,6 +108,30 @@ class _RidePrefFormState extends State<RidePrefForm> {
       }
     });
   }
+  
+  void onSubmit() {
+
+    if (departure == null || arrival == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please select both departure and arrival',
+        style: TextStyle(color: Colors.red)),
+        backgroundColor: Colors.white,
+        duration: Duration(seconds: 5),
+        ),
+      );
+      return;
+    }
+
+    RidePref ridePref = RidePref(
+      departure: departure!,
+      arrival: arrival!,
+      departureDate: departureDate,
+      requestedSeats: requestedSeats,
+    );
+
+    Navigator.of(context).pop(ridePref);
+  }
+
 
   
   // ----------------------------------
@@ -158,19 +182,22 @@ class _RidePrefFormState extends State<RidePrefForm> {
   
           // number of seats
           RidePrefInput(
-            title: numberLabel,
             leftIcon: Icons.person_2_outlined,
+            title: numberLabel,
             onPressed: () {
-             
+              
             },
           ),
+
+
+
           const BlaDivider(),
           
           // Search button
           BlaButton (
             isPrimary: true,
             text: "Search",
-            onPressed: () {},
+            onPressed: onSubmit,
           ),
   
         ],

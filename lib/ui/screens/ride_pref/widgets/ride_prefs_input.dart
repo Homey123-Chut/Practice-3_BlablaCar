@@ -4,11 +4,13 @@ import '../../../theme/theme.dart';
 
 class RidePrefInput extends StatelessWidget {
   final String title;
+  final Widget? titleWidget;
   final VoidCallback onPressed;
   final IconData leftIcon;
   final IconData? rightIcon;
   final VoidCallback? onRightIconPressed;
   final bool? text;
+
 
   const RidePrefInput({
     super.key,
@@ -18,6 +20,7 @@ class RidePrefInput extends StatelessWidget {
     this.rightIcon,
     this.onRightIconPressed,
     this.text = false,
+    this.titleWidget,
   });
 
   @override
